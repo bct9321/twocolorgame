@@ -24,18 +24,26 @@ $(document).ready(function() {
 		var x = 0;
 		var y = 0;
 		function moveRight() {
-			x++;
+			if (x < GAME_WIDTH - PLAYER_WIDTH) {
+				x++;
+			}
 		}
 		function moveLeft() {
-			x--;
+			if (x > 0) {
+				x--;
+			}
 		}
 
 		function moveUp() {
-			y--;
+			if (y > 0) {
+				y--;
+			}
 		}
 
 		function moveDown() {
-			y++;
+			if (y < GAME_HEIGHT - PLAYER_HEIGHT) {
+				y++;
+			}
 		} 
 
 		function render() {
@@ -85,6 +93,10 @@ $(document).ready(function() {
 	var KEY_UP = 38;
 	var KEY_LEFT = 37;
 	var KEY_DOWN = 40;
+	var GAME_WIDTH = 200;
+	var GAME_HEIGHT = 200;
+	var PLAYER_WIDTH = 20;
+	var PLAYER_HEIGHT = 20;
 	
 	$(document).on('keydown', function (even) {
 		if (event.keyCode === KEY_RIGHT && windowControl.currentWindow.id === gameWindow.id) {
