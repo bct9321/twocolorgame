@@ -87,13 +87,13 @@ $(document).ready(function() {
 	var KEY_DOWN = 40;
 	
 	$(document).on('keydown', function (even) {
-		if (event.keyCode === KEY_RIGHT) {
+		if (event.keyCode === KEY_RIGHT && windowControl.currentWindow.id === gameWindow.id) {
 			player.moveRight();
-		} else if (event.keyCode === KEY_LEFT) {
+		} else if (event.keyCode === KEY_LEFT && windowControl.currentWindow.id === gameWindow.id) {
 			player.moveLeft();
-		} else if (event.keyCode === KEY_UP) {
+		} else if (event.keyCode === KEY_UP && windowControl.currentWindow.id === gameWindow.id) {
 			player.moveUp();
-		} else if (event.keyCode === KEY_DOWN) {
+		} else if (event.keyCode === KEY_DOWN && windowControl.currentWindow.id === gameWindow.id) {
 			player.moveDown();
 		} else if (event.keyCode === 13) {
 			if (windowControl.currentWindow.id === gameWindow.id) {
