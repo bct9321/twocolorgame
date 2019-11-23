@@ -9,11 +9,30 @@ $(document).ready(function() {
 		var $player = $('#player');
 		var x = 0;
 		var y = 0;
-		this.moveRight = function () {
+		function moveRight() {
 			x++;
 		}
-		this.render = function() {
-			$player.css('left', x);
+		function moveLeft() {
+			x--;
+		}
+
+		function moveUp() {
+			y--;
+		}
+
+		function moveDown() {
+			y++;
+		} 
+
+		function render() {
+			$player.css({'left': x, 'top': y});
+		}
+		return {
+			moveRight: moveRight,
+			moveLeft: moveLeft,
+			moveUp: moveUp,
+			moveDown: moveDown,
+			render: render
 		}
 	}	
 	
@@ -23,12 +42,24 @@ $(document).ready(function() {
 	
 	var gameWindow = new GameWindow();
 	var player = new GamePlayer();
+	var KEY_RIGHT = 39;
+	var KEY_UP = 38;
+	var KEY_LEFT = 37;
+	var KEY_DOWN = 40;
 	
 	$(document).on('keydown', function (even) {
-		if (event.keyCode === 13) {
+		if (event.keyCode === KEY_RIGHT) {
 			player.moveRight();
-			player.render();
+		} else if (event.keyCode === KEY_LEFT) {
+			player.moveLeft();
+		} else if (event.keyCode === KEY_UP) {
+			player.moveUp();
+		} else if (event.keyCode === KEY_DOWN) {
+			player.moveDown();
+		} else {
+
 		}
+		player.render();
 	});
 	
 	
