@@ -1,5 +1,20 @@
 <body>
 <!-- your content will go there..  -->
+ <style>
+	#battlePlayerMenu {
+		background:#ffffff70;
+		width:96px;
+		height:96px;
+		margin: 0;
+		padding: 0;
+		flex: 1;
+		list-style-type: none;
+	}
+ 
+	#battlePlayerMenu li:hover {
+		background: #ffffffc9;
+	}
+ </style>
  
  <div id="gameWindow" style="background: yellow; width:200px; height:200px; position: relative; display: none;">
 	<div id="player" style="background:red; width:20px; height:20px; position: absolute; left: 0; top: 0;">
@@ -7,14 +22,31 @@
 	</div>
  </div>
  
- <div id="battleWindow" style="background: gray; width:200px;  height:200px; position: relative; display: none;">
-	<div id="battlePlayer" style="background:red; width:40px; height:40px; position: absolute; left: 0; bottom: 0;">
-		
+ <div id="battleWindow" style="
+	background-image: url(../src/img/battleBG.png);
+    background-size: 2000px 1200px;
+    background-position: -700px 0px;
+    background-repeat: no-repeat;
+    width: 600px;
+    height: 400px;
+    position: relative;
+	display: none;">
+	<div id="lowerArea" style="width:100%; position: absolute; bottom: 0px; height: 96px; display:flex;">
+		<div id="battlePlayer" style="background-image: url(../src/img/monster/1-rear.png); width:96px; height:96px;">
+			
+		</div>
+		<ul id="battlePlayerMenu" style="">
+			<li>Attack</li>
+			<li>Catch</li>
+			<li>Run</li>
+		</ul>
 	</div>
-	<div id="battleEnemy" style="background:red; width:40px; height:40px; position: absolute; right: 0; top: 0;">
-		
+	<div id="topArea">
+		<div id="battleEnemy" style="background-image: url(../src/img/monster/1-front.png); width:96px; height:96px; position: absolute; right: 100px; top: 130px;">
+		</div>
 	</div>
  </div>
  
 </body>
+
 </html>

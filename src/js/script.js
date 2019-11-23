@@ -79,7 +79,7 @@ $(document).ready(function() {
 	var gameWindow = new GameWindow();
 	var battleWindow = new BattleWindow();
 	var windowControl = new WindowControl();
-	windowControl.show(gameWindow);
+	windowControl.show(battleWindow);
 	var player = new GamePlayer();
 	var KEY_RIGHT = 39;
 	var KEY_UP = 38;
