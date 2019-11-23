@@ -20,10 +20,10 @@ $(document).ready(function() {
 		var music = '661012_Space-Battle.mp3';
 
 		var attacker = {
-			speed: 1
+			speed: 10
 		};
 		var defender = {
-			speed: 0
+			speed: 10
 		};
 
 		function actionAttack(attacker, defender) {
@@ -46,11 +46,29 @@ $(document).ready(function() {
 		var numEscapesAttempted = 0;
 		
 		function actionRun(attacker, defender) {
+			var escapes = false;
+			var f = false;
 			
-			if (defender.speed < attacker.speed || ((attacker.speed * 32) / ((defender.speed/4) % 256)) + numEscapesAttempted) {
+			
+			if (attacker.speed > defender.speed) {
+				escapes = true;
+			} else if ((f = ((attacker.speed * 32) / ((defender.speed/4) % 256)) + numEscapesAttempted) > 255) {
+				escapes = true;
+			} else {
+				var min = 0;
+				var max = 255;
+				var rand = Math.floor(Math.random() * (max - min + 1)) + min;
+				if (rand < f) {
+					escapes = true;
+				}
+			}
+			
+			if (escapes) {
 				// escaped
 				windowControl.hide(battleWindow);
 				windowControl.show(gameWindow);
+			} else {
+				alert('Can\'t Escape!');
 			}
 			
 			
