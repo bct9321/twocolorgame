@@ -174,7 +174,7 @@ $(document).ready(function() {
 	}	
 
 	function WindowControl() {
-		var self = this;
+		
 		this.currentWindow;
 		this.audioElement = document.createElement('audio');
 		this.audioElement.setAttribute('src', '');
@@ -183,10 +183,11 @@ $(document).ready(function() {
 		function playMusic(window) {
 			this.audioElement.autoplay = true;
 
-			this.audioElement.load()
+			
 			this.audioElement.addEventListener("load", function() { 
 				 self.audioElement.play(); 
 			 }, true);
+			 this.audioElement.load()
 			this.audioElement.src = '../src/artifacts/music/' + window.music;
 			
 		}
@@ -207,7 +208,10 @@ $(document).ready(function() {
 				displayWindow.$window.show();
 			}
 			this.currentWindow = displayWindow;
-			
+			var self = this;
+			setTimeout(function(){
+				self.playMusic(self.currentWindow);
+			})
 			this.playMusic(this.currentWindow);
 		}
 		function hide(displayWindow, effect) {
