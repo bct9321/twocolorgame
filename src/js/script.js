@@ -43,7 +43,7 @@ $(document).ready(function() {
 		
 		function actionRun(attacker, defender) {
 			
-			if (defender.speed < attacker.speed || ((attacker.speed * 32) / ((efender.speed/4) % 256)) + numEscapesAttempted) {
+			if (defender.speed < attacker.speed || ((attacker.speed * 32) / ((defender.speed/4) % 256)) + numEscapesAttempted) {
 				// escaped
 				windowControl.hide(battleWindow);
 				windowControl.show(gameWindow);
