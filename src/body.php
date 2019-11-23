@@ -15,6 +15,11 @@
 		background: #ffffffc9;
 	}
  </style>
+ <div id="introWindow" style="width:100%; height:100%; position: relative;">
+	<button id="intro" style="width: 100%; margin:auto; margin-top: 20%">
+		Start Game
+	</button>
+ </div>
  
  <div id="gameWindow" style="background: yellow; width:100%; height:100%; position: relative; display: none;">
 	<div id="player" style="background:red; width:20px; height:20px; position: absolute; left: 0; top: 0;">

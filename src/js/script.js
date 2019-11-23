@@ -186,7 +186,8 @@ $(document).ready(function() {
 			this.audioElement.load()
 			this.audioElement.addEventListener("load", function() { 
 				 self.audioElement.play(); 
-			 }, true);
+			}, true);
+
 			this.audioElement.src = '../src/artifacts/music/' + window.music;
 			
 		}
@@ -239,7 +240,6 @@ $(document).ready(function() {
 	var battleWindow = new BattleWindow();
 	var windowControl = new WindowControl();
 
-	windowControl.show(gameWindow);
 	var player = new GamePlayer(gameWindow);
 
 	var KEY_RIGHT = 39;
@@ -248,6 +248,11 @@ $(document).ready(function() {
 	var KEY_DOWN = 40;
 	var PLAYER_WIDTH = 20;
 	var PLAYER_HEIGHT = 20;
+
+	$('#intro').on('click', function() {
+		$('#introWindow').hide();
+		windowControl.show(gameWindow);
+	});
 	
 	$(document).on('keydown', function (event) {
 		if (event.keyCode === KEY_RIGHT && windowControl.currentWindow.id === gameWindow.id) {
