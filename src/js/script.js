@@ -19,30 +19,31 @@ $(document).ready(function() {
 		}
 	}
 
-	function GamePlayer() {
+	function GamePlayer(_gameWindow) {
 		var $player = $('#player');
 		var x = 0;
 		var y = 0;
+		var gameWindow = _gameWindow;
 		function moveRight() {
-			if (x < GAME_WIDTH - PLAYER_WIDTH) {
-				x++;
+			if (x < gameWindow.$window.width() - PLAYER_WIDTH) {
+				x += PLAYER_WIDTH;
 			}
 		}
 		function moveLeft() {
 			if (x > 0) {
-				x--;
+				x -= PLAYER_WIDTH;
 			}
 		}
 
 		function moveUp() {
 			if (y > 0) {
-				y--;
+				y -= PLAYER_HEIGHT;
 			}
 		}
 
 		function moveDown() {
-			if (y < GAME_HEIGHT - PLAYER_HEIGHT) {
-				y++;
+			if (y < gameWindow.$window.height() - PLAYER_HEIGHT) {
+				y += PLAYER_HEIGHT;
 			}
 		} 
 
@@ -88,13 +89,13 @@ $(document).ready(function() {
 	var battleWindow = new BattleWindow();
 	var windowControl = new WindowControl();
 	windowControl.show(gameWindow);
-	var player = new GamePlayer();
+	var player = new GamePlayer(gameWindow);
 	var KEY_RIGHT = 39;
 	var KEY_UP = 38;
 	var KEY_LEFT = 37;
 	var KEY_DOWN = 40;
-	var GAME_WIDTH = 200;
-	var GAME_HEIGHT = 200;
+	var GAME_WIDTH = 600;
+	var GAME_HEIGHT = 400;
 	var PLAYER_WIDTH = 20;
 	var PLAYER_HEIGHT = 20;
 	
