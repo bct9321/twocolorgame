@@ -1,4 +1,4 @@
-<body style=" width:100%;  height:100%; margin:0 ">
+<body style="background-color: black; width:100%;  height:100%; margin:0 ">
 <!-- your content will go there..  -->
  <style>
 	#battlePlayerMenu {

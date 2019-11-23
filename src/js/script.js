@@ -11,8 +11,51 @@ $(document).ready(function() {
 	}
 
 	function BattleWindow() {
+		var self = this;
 		var id = 'battleWindow';
 		var $window = $('#' + id);
+
+		var attacker = {
+			speed: 1
+		};
+		var defender = {
+			speed: 0
+		};
+
+		function actionAttack() {
+			alert('Attack Not Implemented!');
+			//..attack
+		}
+
+		function actionCatch() {
+			alert('Catch Not Implemented!');
+		}
+
+		var numEscapesAttempted = 0;
+		
+		function actionRun(attacker, defender) {
+			
+			if (defender.speed < attacker.speed || ((attacker.speed * 32) / ((efender.speed/4) % 256)) + numEscapesAttempted) {
+				// escaped
+				windowControl.hide(battleWindow);
+				windowControl.show(gameWindow);
+			}
+			
+			
+		}
+		
+		$window.on('click', 'ul#battlePlayerMenu li', function (e) {
+			var menueOption = $(this).text().toLowerCase();
+
+			if(menueOption === 'attack') {
+				actionAttack();
+			} else if(menueOption === 'catch') {
+				actionCatch();
+			} else if(menueOption === 'run') {
+				actionRun(attacker, defender);
+			}
+		});
+
 		return {
 			$window: $window,
 			id: id
@@ -120,16 +163,29 @@ $(document).ready(function() {
 	function WindowControl() {
 		this.currentWindow;
 		
-		function show(displayWindow) {
+		function show(displayWindow, fadeIn) {
 			if (this.currentWindow) {
-				//hide.call(this, currentWindow);
-				hide(this.currentWindow);
+				var effect = null;
+				//FIXME: Theres probably a smarter way to fo this
+				if (displayWindow.id === battleWindow.id) {
+					effect = 'explode'
+				}
+				hide(this.currentWindow, effect);
 			}
-			displayWindow.$window.show();
+			
+			if (fadeIn) {
+				displayWindow.$window.delay(800).fadeIn('slow');
+			} else {
+				displayWindow.$window.show();
+			}
 			this.currentWindow = displayWindow;
 		}
-		function hide(displayWindow) {
-			displayWindow.$window.hide();
+		function hide(displayWindow, effect) {
+			if (effect) {
+				displayWindow.$window.effect(effect);
+			} else {
+				displayWindow.$window.hide();
+			}
 		}
 
 		return {
@@ -161,7 +217,7 @@ $(document).ready(function() {
 	var PLAYER_WIDTH = 20;
 	var PLAYER_HEIGHT = 20;
 	
-	$(document).on('keydown', function (even) {
+	$(document).on('keydown', function (event) {
 		if (event.keyCode === KEY_RIGHT && windowControl.currentWindow.id === gameWindow.id) {
 			player.moveRight();
 		} else if (event.keyCode === KEY_LEFT && windowControl.currentWindow.id === gameWindow.id) {
@@ -172,7 +228,7 @@ $(document).ready(function() {
 			player.moveDown();
 		} else if (event.keyCode === 13) {
 			if (windowControl.currentWindow.id === gameWindow.id) {
-				windowControl.show(battleWindow);
+				windowControl.show(battleWindow, true);
 			} else {
 				windowControl.show(gameWindow);
 			}
@@ -181,6 +237,14 @@ $(document).ready(function() {
 		}
 		player.render();
 	});
+
+
+
+	$(window).on('resize', function(event) {
+		// fix game window not having a size
+		$('#gameWindow').css({'width': $('#gameWindow').width() + 'px', 'height': $('#gameWindow').height() + 'px'});
+	});
+	$(window).trigger('resize');
 	
 	
 });
