@@ -1,4 +1,4 @@
-<body>
+<body style=" width:100%;  height:100%; margin:0 ">
 <!-- your content will go there..  -->
  <style>
 	#battlePlayerMenu {
@@ -16,12 +16,12 @@
 	}
  </style>
  
- <div id="gameWindow" style="background: yellow; width:200px; height:200px; position: relative; display: none;">
+ <div id="gameWindow" style="background: yellow; width:100%; height:100%; position: relative; display: none;">
 	<div id="player" style="background:red; width:20px; height:20px; position: absolute; left: 0; top: 0;">
 		
 	</div>
  </div>
- 
+
  <div id="battleWindow" style="
 	background-image: url(../src/img/battleBG.png);
     background-size: 2000px 1200px;
@@ -40,6 +40,7 @@
 			<li>Catch</li>
 			<li>Run</li>
 		</ul>
+
 	</div>
 	<div id="topArea">
 		<div id="battleEnemy" style="background-image: url(../src/img/monster/1-front.png); width:96px; height:96px; position: absolute; right: 100px; top: 130px;">
