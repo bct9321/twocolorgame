@@ -28,24 +28,43 @@ $(document).ready(function() {
 			if (x < gameWindow.$window.width() - PLAYER_WIDTH) {
 				x += PLAYER_WIDTH;
 			}
+			fixPlayerPosition();
 		}
 		function moveLeft() {
 			if (x > 0) {
 				x -= PLAYER_WIDTH;
 			}
+			fixPlayerPosition();
 		}
 
 		function moveUp() {
 			if (y > 0) {
 				y -= PLAYER_HEIGHT;
 			}
+			fixPlayerPosition();
 		}
 
 		function moveDown() {
 			if (y < gameWindow.$window.height() - PLAYER_HEIGHT) {
 				y += PLAYER_HEIGHT;
 			}
+			fixPlayerPosition();
 		} 
+
+		function fixPlayerPosition() {
+			if (x > gameWindow.$window.width() - PLAYER_WIDTH) {
+				x =  gameWindow.$window.width() - PLAYER_WIDTH;
+			}
+			if (y > gameWindow.$window.height() - PLAYER_HEIGHT) {
+				y =  gameWindow.$window.height() - PLAYER_HEIGHT;
+			}
+			if (y < 0) {
+				y = 0;
+			}
+			if (x < 0) {
+				x = 0;
+			}
+		}
 
 		function render() {
 			$player.css({'left': x, 'top': y});
@@ -96,8 +115,6 @@ $(document).ready(function() {
 	var KEY_UP = 38;
 	var KEY_LEFT = 37;
 	var KEY_DOWN = 40;
-	var GAME_WIDTH = 600;
-	var GAME_HEIGHT = 400;
 	var PLAYER_WIDTH = 20;
 	var PLAYER_HEIGHT = 20;
 	
