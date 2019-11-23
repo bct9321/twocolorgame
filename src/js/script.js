@@ -4,9 +4,12 @@ $(document).ready(function() {
 	function GameWindow() {
 		var id = "gameWindow";
 		var $window = $('#' + id);
+		var music = '22203_newgrounds_overwo.mp3';
+		
 		return {
 			$window: $window,
-			id: id
+			id: id,
+			music: music
 		}
 	}
 
@@ -14,6 +17,7 @@ $(document).ready(function() {
 		var self = this;
 		var id = 'battleWindow';
 		var $window = $('#' + id);
+		var music = '661012_Space-Battle.mp3';
 
 		var attacker = {
 			speed: 1
@@ -66,7 +70,8 @@ $(document).ready(function() {
 
 		return {
 			$window: $window,
-			id: id
+			id: id,
+			music: music
 		}
 	}
 
@@ -169,7 +174,22 @@ $(document).ready(function() {
 	}	
 
 	function WindowControl() {
+		var self = this;
 		this.currentWindow;
+		this.audioElement = document.createElement('audio');
+		this.audioElement.setAttribute('src', '');
+   
+		
+		function playMusic(window) {
+			this.audioElement.autoplay = true;
+
+			this.audioElement.load()
+			this.audioElement.addEventListener("load", function() { 
+				 self.audioElement.play(); 
+			 }, true);
+			this.audioElement.src = '../src/artifacts/music/' + window.music;
+			
+		}
 		
 		function show(displayWindow, fadeIn) {
 			if (this.currentWindow) {
@@ -187,6 +207,8 @@ $(document).ready(function() {
 				displayWindow.$window.show();
 			}
 			this.currentWindow = displayWindow;
+			
+			this.playMusic(this.currentWindow);
 		}
 		function hide(displayWindow, effect) {
 			if (effect) {
@@ -199,7 +221,9 @@ $(document).ready(function() {
 		return {
 			show: show,
 			hide: hide,
-			currentWindow: this.currentWindow
+			currentWindow: this.currentWindow,
+			audioElement: this.audioElement,
+			playMusic: playMusic
 		}
 	}
 
