@@ -22,9 +22,17 @@ $(document).ready(function() {
 			speed: 0
 		};
 
-		function actionAttack() {
+		function actionAttack(attacker, defender) {
 			alert('Attack Not Implemented!');
-			//..attack
+			return;
+			
+			var damage = attacker.strength * (attacker.strength - defender.defense);
+			defender.hp -= damage;
+			console.log('%s attacked %s for %s damage!', attacker.name, defender.name, damage);
+			//if(defender.hp === 0) {
+
+			//}
+
 		}
 
 		function actionCatch() {
@@ -48,7 +56,7 @@ $(document).ready(function() {
 			var menueOption = $(this).text().toLowerCase();
 
 			if(menueOption === 'attack') {
-				actionAttack();
+				actionAttack(attacker, defender);
 			} else if(menueOption === 'catch') {
 				actionCatch();
 			} else if(menueOption === 'run') {
