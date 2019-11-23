@@ -22,33 +22,52 @@ $(document).ready(function() {
 	function GamePlayer(_gameWindow) {
 		var $player = $('#player');
 		var x = 0;
+		var oldX = 0;
 		var y = 0;
+		var oldY = 0;
 		var gameWindow = _gameWindow;
+		var stepCounter = 0;
 		function moveRight() {
+			oldX = x;
 			if (x < gameWindow.$window.width() - PLAYER_WIDTH) {
 				x += PLAYER_WIDTH;
 			}
 			fixPlayerPosition();
+			if (x != oldX) {
+				rollRandomBattle();
+			}
 		}
 		function moveLeft() {
+			oldX = x;
 			if (x > 0) {
 				x -= PLAYER_WIDTH;
 			}
 			fixPlayerPosition();
+			if (x != oldX) {
+				rollRandomBattle();
+			}
 		}
 
 		function moveUp() {
+			oldY = y;
 			if (y > 0) {
 				y -= PLAYER_HEIGHT;
 			}
 			fixPlayerPosition();
+			if (y != oldY) {
+				rollRandomBattle();
+			}
 		}
 
 		function moveDown() {
+			oldY = y;
 			if (y < gameWindow.$window.height() - PLAYER_HEIGHT) {
 				y += PLAYER_HEIGHT;
 			}
 			fixPlayerPosition();
+			if (y != oldY) {
+				rollRandomBattle();
+			}
 		} 
 
 		function fixPlayerPosition() {
@@ -66,6 +85,25 @@ $(document).ready(function() {
 			}
 		}
 
+		function randomIntFromInterval(min, max) { // min and max included 
+  			return Math.floor(Math.random() * (max - min + 1) + min);
+		}
+
+		function rollRandomBattle() {
+			var randomNum = randomIntFromInterval(1, 255);
+			stepCounter += 192;
+			var startBattle;
+			startBattle = Boolean(randomNum < stepCounter / 256);
+			if (startBattle) {
+				stepCounter = 0;
+				startBattleSequence();
+			}
+		}
+
+		function startBattleSequence() {
+			windowControl.show(battleWindow);
+		}
+
 		function render() {
 			$player.css({'left': x, 'top': y});
 		}
@@ -74,7 +112,8 @@ $(document).ready(function() {
 			moveLeft: moveLeft,
 			moveUp: moveUp,
 			moveDown: moveDown,
-			render: render
+			render: render,
+			rollRandomBattle: rollRandomBattle
 		}
 	}	
 
@@ -99,6 +138,10 @@ $(document).ready(function() {
 			currentWindow: this.currentWindow
 		}
 	}
+
+
+
+
 	
 	
 	
