@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html style=" width:100%;  height:100%; " lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Two Color</title>

@@ -19,23 +19,32 @@ $(document).ready(function() {
 		}
 	}
 
-	function GamePlayer() {
+	function GamePlayer(_gameWindow) {
 		var $player = $('#player');
 		var x = 0;
 		var y = 0;
+		var gameWindow = _gameWindow;
 		function moveRight() {
-			x++;
+			if (x < gameWindow.$window.width() - PLAYER_WIDTH) {
+				x += PLAYER_WIDTH;
+			}
 		}
 		function moveLeft() {
-			x--;
+			if (x > 0) {
+				x -= PLAYER_WIDTH;
+			}
 		}
 
 		function moveUp() {
-			y--;
+			if (y > 0) {
+				y -= PLAYER_HEIGHT;
+			}
 		}
 
 		function moveDown() {
-			y++;
+			if (y < gameWindow.$window.height() - PLAYER_HEIGHT) {
+				y += PLAYER_HEIGHT;
+			}
 		} 
 
 		function render() {
@@ -79,21 +88,27 @@ $(document).ready(function() {
 	var gameWindow = new GameWindow();
 	var battleWindow = new BattleWindow();
 	var windowControl = new WindowControl();
-	windowControl.show(battleWindow);
-	var player = new GamePlayer();
+
+	windowControl.show(gameWindow);
+	var player = new GamePlayer(gameWindow);
+
 	var KEY_RIGHT = 39;
 	var KEY_UP = 38;
 	var KEY_LEFT = 37;
 	var KEY_DOWN = 40;
+	var GAME_WIDTH = 600;
+	var GAME_HEIGHT = 400;
+	var PLAYER_WIDTH = 20;
+	var PLAYER_HEIGHT = 20;
 	
 	$(document).on('keydown', function (even) {
-		if (event.keyCode === KEY_RIGHT) {
+		if (event.keyCode === KEY_RIGHT && windowControl.currentWindow.id === gameWindow.id) {
 			player.moveRight();
-		} else if (event.keyCode === KEY_LEFT) {
+		} else if (event.keyCode === KEY_LEFT && windowControl.currentWindow.id === gameWindow.id) {
 			player.moveLeft();
-		} else if (event.keyCode === KEY_UP) {
+		} else if (event.keyCode === KEY_UP && windowControl.currentWindow.id === gameWindow.id) {
 			player.moveUp();
-		} else if (event.keyCode === KEY_DOWN) {
+		} else if (event.keyCode === KEY_DOWN && windowControl.currentWindow.id === gameWindow.id) {
 			player.moveDown();
 		} else if (event.keyCode === 13) {
 			if (windowControl.currentWindow.id === gameWindow.id) {
