@@ -11,8 +11,51 @@ $(document).ready(function() {
 	}
 
 	function BattleWindow() {
+		var self = this;
 		var id = 'battleWindow';
 		var $window = $('#' + id);
+
+		var attacker = {
+			speed: 1
+		};
+		var defender = {
+			speed: 0
+		};
+
+		function actionAttack() {
+			alert('Attack Not Implemented!');
+			//..attack
+		}
+
+		function actionCatch() {
+			alert('Catch Not Implemented!');
+		}
+
+		var numEscapesAttempted = 0;
+		
+		function actionRun(attacker, defender) {
+			
+			if (defender.speed < attacker.speed || ((attacker.speed * 32) / ((efender.speed/4) % 256)) + numEscapesAttempted) {
+				// escaped
+				windowControl.hide(battleWindow);
+				windowControl.show(gameWindow);
+			}
+			
+			
+		}
+		
+		$window.on('click', 'ul#battlePlayerMenu li', function (e) {
+			var menueOption = $(this).text().toLowerCase();
+
+			if(menueOption === 'attack') {
+				actionAttack();
+			} else if(menueOption === 'catch') {
+				actionCatch();
+			} else if(menueOption === 'run') {
+				actionRun(attacker, defender);
+			}
+		});
+
 		return {
 			$window: $window,
 			id: id
@@ -151,6 +194,8 @@ $(document).ready(function() {
 		}
 		player.render();
 	});
+
+
 
 	$(window).on('resize', function(event) {
 		// fix game window not having a size
