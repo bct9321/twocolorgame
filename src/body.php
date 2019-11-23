@@ -16,9 +16,12 @@
 	}
  </style>
  <div id="introWindow" style="width:100%; height:100%; position: relative;">
-	<button id="intro" style="width: 100%; margin:auto; margin-top: 20%">
-		Start Game
-	</button>
+	<div style="width: 100%; margin:auto; margin-top: 20%";>
+		<div style="color: white; text-align: center; width: 100%">Move around with the arrow keys until a battle. Then use the mouse to select an option. </div>
+		<button id="intro" style="width: 100%; margin-top: 8px;">
+			Start Game
+		</button>
+	</div>
  </div>
  
  <div id="gameWindow" style="background: yellow; width:100%; height:100%; position: relative; display: none;">
