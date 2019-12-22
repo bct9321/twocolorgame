@@ -46,6 +46,7 @@
 		<span class="audio-off">Audio Off</span>
 	</div>
 	<div id="enemy" class="enemy-none" style="position: absolute; top: 0; left: 0; display: none; background: black; color: silver; border:1px dotted white; border-right: none; width: 28px; height: 25px;" >.__.</div>
+	<div id="ball" class="enemy-none" style="position: absolute; top: 100; left: 0; display: none; background: black; color: silver; border:1px dotted white; border-right: none; width: 28px; height: 25px;" >T.T</div>
  </div>
 
  <div id="battleWindow" style="

@@ -108,6 +108,10 @@ $(document).ready(function() {
 			enableBattleRoll = val;
 		}
 
+		function getX() {
+			return x;
+		}
+
 		function moveRight() {
 			oldX = x;
 			if (x < gameWindow.$window.width() - PLAYER_WIDTH) {
@@ -200,7 +204,8 @@ $(document).ready(function() {
 			moveDown: moveDown,
 			render: render,
 			rollRandomBattle: rollRandomBattle,
-			setEnableBattleRoll: setEnableBattleRoll
+			setEnableBattleRoll: setEnableBattleRoll,
+			getX: getX
 		}
 	}	
 
@@ -306,7 +311,8 @@ $(document).ready(function() {
 
 	var player = new GamePlayer($('#player'), gameWindow, true);
 	var enemies = [new GamePlayer($('#enemy').clone().show().addClass('enemy-idle').removeClass('enemy-none').appendTo(gameWindow.$window), gameWindow)];
-
+	var anis = [new GamePlayer($('#ball').show().addClass('enemy-idle').removeClass('enemy-none').appendTo(gameWindow.$window), gameWindow)];
+	
 	var KEY_RIGHT = 39;
 	var KEY_UP = 38;
 	var KEY_LEFT = 37;
@@ -394,6 +400,35 @@ $(document).ready(function() {
 		}
 	};
 	aiRunner();
+	
+	var direction = false;
+	var doAniLogic = function() {
+		$.each(anis, function(index, ani) {
+			if(gameWindow.$window.width() <=  ani.getX() + PLAYER_WIDTH) {
+				direction = false;
+			} else if(ani.getX() <= 0) {
+				direction = true;
+			} 
+
+			if (direction) {
+				ani.moveRight();
+			} else {
+				ani.moveLeft();
+			};
+
+			ani.render();
+		});
+	};
+	
+	var aniRunner = function() {
+		if (ai_enabled) {
+			setTimeout(function(){
+				doAniLogic();
+				aniRunner();
+			}, 60);
+		}
+	};
+	aniRunner();
 
 
 
