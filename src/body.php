@@ -14,6 +14,19 @@
 	#battlePlayerMenu li:hover {
 		background: #ffffffc9;
 	}
+	
+	#mute span.audio-on {
+		display: none;
+	}
+	#mute span.audio-off {
+		display: block;
+	}
+	#mute.audio-on span.audio-on {
+		display: block;
+	}
+	#mute.audio-on span.audio-off {
+		display: none;
+	}
  </style>
  <div id="introWindow" style="width:100%; height:100%; position: relative;">
 	<div style="width: 100%; margin:auto; margin-top: 20%";>
@@ -27,6 +40,10 @@
  <div id="gameWindow" style="background: yellow; width:100%; height:100%; position: relative; display: none;">
 	<div id="player" style="background:red; width:20px; height:20px; position: absolute; left: 0; top: 0;">
 		
+	</div>
+	<div id="mute" class="">
+		<span class="audio-on">Audio On</span>
+		<span class="audio-off">Audio Off</span>
 	</div>
  </div>
 

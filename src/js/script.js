@@ -101,6 +101,7 @@ $(document).ready(function() {
 		var oldY = 0;
 		var gameWindow = _gameWindow;
 		var stepCounter = 0;
+
 		function moveRight() {
 			oldX = x;
 			if (x < gameWindow.$window.width() - PLAYER_WIDTH) {
@@ -196,9 +197,23 @@ $(document).ready(function() {
 		this.currentWindow;
 		this.audioElement = document.createElement('audio');
 		this.audioElement.setAttribute('src', '');
+		try {
+		    this.settings = JSON.parse(localStorage.getItem('windowControl-settings'));
+		    if(!this.settings) {
+		    	throw new Error('settings not defined');
+		    }
+		} catch (e) {
+            this.settings = {
+            	musicAudio: true
+            }
+		}
+		
+		this.audioElement.muted = !this.settings.musicAudio;
+		
    
 		
 		function playMusic(window) {
+			this.audioElement.muted = !this.settings.musicAudio;
 			this.audioElement.autoplay = true;
 
 			this.audioElement.load()
@@ -208,6 +223,17 @@ $(document).ready(function() {
 
 			this.audioElement.src = '../src/artifacts/music/' + window.music;
 			
+		}
+
+		function toggleMusicAudio() {
+			this.settings.musicAudio = !this.settings.musicAudio;
+			this.audioElement.muted = !this.settings.musicAudio;
+			if (this.settings.musicAudio) {
+				$('#mute').addClass('audio-on');
+			} else {
+				$('#mute').removeClass('audio-on');
+			}
+			localStorage.setItem('windowControl-settings', JSON.stringify(this.settings));
 		}
 		
 		function show(displayWindow, fadeIn) {
@@ -229,6 +255,7 @@ $(document).ready(function() {
 			
 			this.playMusic(this.currentWindow);
 		}
+
 		function hide(displayWindow, effect) {
 			if (effect) {
 				displayWindow.$window.effect(effect);
@@ -237,11 +264,18 @@ $(document).ready(function() {
 			}
 		}
 
+        // toggle music before we call toggle.
+        this.settings.musicAudio = !this.settings.musicAudio;
+		toggleMusicAudio.call(this);
+
+
 		return {
 			show: show,
 			hide: hide,
 			currentWindow: this.currentWindow,
 			audioElement: this.audioElement,
+			settings: this.settings,
+			toggleMusicAudio: toggleMusicAudio,
 			playMusic: playMusic
 		}
 	}
@@ -266,6 +300,8 @@ $(document).ready(function() {
 	var KEY_DOWN = 40;
 	var PLAYER_WIDTH = 20;
 	var PLAYER_HEIGHT = 20;
+	var KEY_M = 77;
+	var KEY_ENTER = 13;
 
 	$('#intro').on('click', function() {
 		$('#introWindow').hide();
@@ -281,17 +317,21 @@ $(document).ready(function() {
 			player.moveUp();
 		} else if (event.keyCode === KEY_DOWN && windowControl.currentWindow.id === gameWindow.id) {
 			player.moveDown();
-		} else if (event.keyCode === 13) {
+		} else if (event.keyCode === KEY_ENTER) {
 			if (windowControl.currentWindow.id === gameWindow.id) {
 				windowControl.show(battleWindow, true);
 			} else {
 				windowControl.show(gameWindow);
 			}
-		} else {
+		} else if (event.keyCode === KEY_M) {
+			windowControl.toggleMusicAudio();
+		}else {
 
 		}
 		player.render();
 	});
+	
+	
 
 
 
