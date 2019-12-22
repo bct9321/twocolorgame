@@ -93,14 +93,20 @@ $(document).ready(function() {
 		}
 	}
 
-	function GamePlayer(_gameWindow) {
-		var $player = $('#player');
+	function GamePlayer(_$player, _gameWindow, _enableBattleRoll) {
+		var $player = _$player;
 		var x = 0;
 		var oldX = 0;
 		var y = 0;
 		var oldY = 0;
 		var gameWindow = _gameWindow;
 		var stepCounter = 0;
+		var enableBattleRoll = _enableBattleRoll;
+		
+		function setEnableBattleRoll(val)
+		{
+			enableBattleRoll = val;
+		}
 
 		function moveRight() {
 			oldX = x;
@@ -165,6 +171,11 @@ $(document).ready(function() {
 		}
 
 		function rollRandomBattle() {
+			if (!enableBattleRoll) {
+			    // done
+				return;
+			}
+
 			var randomNum = randomIntFromInterval(1, 255);
 			stepCounter += 192;
 			var startBattle;
@@ -188,7 +199,8 @@ $(document).ready(function() {
 			moveUp: moveUp,
 			moveDown: moveDown,
 			render: render,
-			rollRandomBattle: rollRandomBattle
+			rollRandomBattle: rollRandomBattle,
+			setEnableBattleRoll: setEnableBattleRoll
 		}
 	}	
 
@@ -292,7 +304,8 @@ $(document).ready(function() {
 	var battleWindow = new BattleWindow();
 	var windowControl = new WindowControl();
 
-	var player = new GamePlayer(gameWindow);
+	var player = new GamePlayer($('#player'), gameWindow, true);
+	var enemies = [new GamePlayer($('#enemy').clone().show().addClass('enemy-idle').removeClass('enemy-none').appendTo(gameWindow.$window), gameWindow)];
 
 	var KEY_RIGHT = 39;
 	var KEY_UP = 38;
@@ -331,7 +344,56 @@ $(document).ready(function() {
 		player.render();
 	});
 	
+	var diceRoll = function(sides) {
+		return Math.floor(Math.random() * sides) + 1
+	};
 	
+	
+	// run enemy logic
+	var doEnemyLogic = function() {
+		$.each(enemies, function(index, enemy) {
+			// move right
+			var roll = diceRoll(10);
+			if (roll === 3 || roll === 7) {
+				
+			} else if (roll % 2 === 0) {
+				// if even go horizontal
+				if (roll > 7) {
+					// move right
+					enemy.moveRight();
+				} else if (roll < 3) {
+					// move left
+					enemy.moveLeft();
+				} else {
+					// no move
+				}
+			} else {
+				// if odd go vertical
+				if (roll > 7) {
+					// move up
+					enemy.moveUp();
+				} else if (roll < 3) {
+					// move down
+					enemy.moveDown();
+				} else {
+					// no move
+				}
+			}
+			enemy.render();
+		});
+	};	
+	
+	var ai_enabled = true;
+	
+	var aiRunner = function() {
+		if (ai_enabled) {
+			setTimeout(function(){
+				doEnemyLogic();
+				aiRunner();
+			}, 500);
+		}
+	};
+	aiRunner();
 
 
 
